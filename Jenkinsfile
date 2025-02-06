@@ -1,34 +1,23 @@
 pipeline {
+    agent any
 
- agent any
-
- tools { 
+    tools { 
         jdk 'JAVA_HOME' 
         maven 'M2_HOME' 
     }
 
- stages {
+    stages {
+        stage('GIT') {
+            steps {
+                git branch: 'main', url: 'https://github.com/saifGt/projetTimeshet.git'
+            }
+        }
 
- stage('GIT') {
-
-           steps {
-
-               git branch: 'main',
-
-               url: ' https://github.com/saifGt/projetTimeshet.git'
-
-          }
-
-     }
-
- stage ('Compile Stage') {
-
- steps {
-
- sh 'mvn clean compile'
-
- }
-
- }
-
+        stage('Compile Stage') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+    }
 }
+
